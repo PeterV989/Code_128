@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Code128 Barcode Generator</title>
+  <meta name="description" content="A simple, stand-alone generator for Code 128 barcodes">
+  <link rel="stylesheet" href="css/Code128.css">
+  <script src="js/Code128.js"></script>
+</head>
+
+<body>
+  <h1>My Code128 Barcode Generator</h1>
+  <div id="myPage">
+    <form id='formBarcode' name="formBarcode">
+      <label for="barcode">Barcode Text:</label>
+      <input type="text" id="barcode" value="" title='Enter a value for the barcode'>
+      <div id="byteArray"></div><br>
+      <div id="errorMessage"></div>
+      <br>
+      <label for="BCWidth">Barcode Image Width (in inches):</label>
+      <input type="number" id="BCWidth" name="BCWidth" step=".125" min="1" max="8" value="4">
+      <br>
+      <label for="BCHeight">Barcode Height (in inches):</label>
+      <input type="number" id="BCHeight" name="BCHeight" step=".125" min=".25" max="10" value="1">
+      <br>
+      <label for="BCTopMargin">Barcode Top Margin</label>
+      <input type="number" id="BCTopMargin" name="BCTopMargin" step=".125" min="0" max="10" value="0">
+      <br>
+      <label for="BCSideMargin">Barcode Side Margin</label>
+      <input type="number" id="BCSideMargin" name="BCSideMargin" step=".125" min="0" max="10" value=".125">
+      <br>
+      <input type="radio" id="none" name="human" value="none">
+      <label for="none">None</label>
+      <input type="radio" id="bottom" name="human" value="bottom" checked>
+      <label for="bottom">Bottom</label>
+      <input type="radio" id="top" name="human" value="top">
+      <label for="top">Top</label>
+      <br>
+      <label for="fontSize">Font Size:</label>
+      <select id="fontSize" name="fontSize">
+        <option value="10">10 px</option>
+        <option value="20">20 px</option>
+        <option value="30">30 px</option>
+        <option value="40">40 px</option>
+        <option value="50">50 px</option>
+        <option value="56" selected>56 px</option>
+        <option value="60">60 px</option>
+        <option value="70">70 px</option>
+        <option value="80">80 px</option>
+      </select>
+      <br>
+      <input type="submit" value="Generate" id="generateBtn" name="generateBtn" disabled>
+    </form>
+  </div>
+  <br>
+  <svg id="svgBarcode" xmlns="http://www.w3.org/2000/svg">
+  </svg>
+  <br>
+  <input type="button" value="Download JPG" id="downloadJPGBtn" disabled>
+  <input type="button" value="Download PNG" id="downloadPNGBtn" disabled>
+  <input type="button" value="Print" id="printBtn" name="printBtn" disabled>
+  <br>
+  <img id=""
+</body>
+
+</html>
