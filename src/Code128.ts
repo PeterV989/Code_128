@@ -1247,6 +1247,11 @@ function DownloadPNG() {
 };
 
 function SVGtoIMG(name: string, imgType: 'jpeg' | 'png'): void {
+    const filename = sanitizeFilename(name + ((imgType === 'jpeg') ? '.jpg' : '.png'), "_");
+    if (!isValidFilenameWindowsStrict(filename)) {
+        displayError('Error with filename. Invalid filename that cannot be easily corrected');
+        return;
+    }
     const canvas = document.createElement('canvas') as HTMLCanvasElement | null;
     const svg = document.getElementById('svgBarcode') as SVGSVGElement | null;
 
@@ -1276,7 +1281,7 @@ function SVGtoIMG(name: string, imgType: 'jpeg' | 'png'): void {
         ctx.drawImage(img, 0, 0);
         const link = document.createElement('a');
         link.href = canvas.toDataURL('image/' + imgType, 0.9);
-        link.download = name + ((imgType === 'jpeg') ? '.jpg' : '.png');
+        link.download = filename;
 
         document.body.appendChild(link);
         link.click();
@@ -1355,3 +1360,30 @@ function clearError(): void {
         errorArea.textContent = '';
     }
 };
+
+function isValidFilenameWindowsStrict(filename: string): boolean {
+    if (!filename || filename.length === 0) {
+      return false; // Empty or null filename is invalid
+    }
+
+    // More restrictive regex for Windows, including reserved names (case-insensitive)
+    const windowsReservedNames = /^(CON|PRN|AUX|NUL|COM[0-9]|LPT[0-9])$/i;
+    if (windowsReservedNames.test(filename)) {
+        return false;
+    }
+    const filenameRegex = /^[^<>:"\/\\|?*\x00-\x1F]+$/;
+
+    return filenameRegex.test(filename);
+}
+
+function sanitizeFilename(filename: string, replacement: string = "_"): string {
+    if (!filename) {
+      return ""; // Or throw an error if you prefer
+    }
+
+      // Regular expression for invalid characters (excluding Windows reserved names)
+      // This is the same regex used for validation, but now we're using it for replacement.
+      const invalidCharsRegex = /[<>:"\/\\|?*\x00-\x1F]/g;
+
+    return filename.replace(invalidCharsRegex, replacement);
+  }

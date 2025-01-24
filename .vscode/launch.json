@@ -10,6 +10,7 @@
             "name": "Launch Chrome",
             "url": "http://localhost:3000", // Replace with your development server URL
             "webRoot": "${workspaceFolder}/public", // Important: Maps your workspace to the web server
+            "sourceMaps": true,
             "sourceMapPathOverrides": {
                 "/./*": "${workspaceFolder}/src/*", // If not using webpack
                 "/*": "${workspaceFolder}/src/*" // If not using webpack
